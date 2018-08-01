@@ -13,11 +13,12 @@ import static org.junit.Assert.assertTrue;
 public class WithdrawSteps {
 
     private static double deltaAmount = 0.0;
+    private static final String accountId = "A345FZ1";
     private Account account;
 
     @Before
     public void init(){
-        this.account = new Account(0.0);
+        this.account = new Account(accountId,0.0,new Client("pierre-jean"));
     }
 
     @Given("^an existing client named \"([^\"]*)\" with (\\d+.\\d+) EUR in his account$")
@@ -25,7 +26,8 @@ public class WithdrawSteps {
         Client client =  new Client(clientName);
         this.account.deposit(amount);
 
-        assertTrue(client.getFirstName().equals("pierre-Jean"));
+        assertTrue(this.account.getId().equals(accountId));
+        assertTrue(client.getFirstName().equals(this.account.getClient()));
         assertEquals(this.account.getBalance(),amount,deltaAmount );
     }
 

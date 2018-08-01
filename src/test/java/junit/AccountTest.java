@@ -1,6 +1,7 @@
 package junit;
 
 import com.nhe.bankapp.domain.Account;
+import com.nhe.bankapp.domain.Client;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,11 +11,12 @@ public class AccountTest {
 
     private Account account;
     private static double deltaAmount = 0.0;
+    private static final String accountId = "A345FZ1";
 
     @Before
     public void init(){
 
-        this.account = new Account(300.0);
+        this.account = new Account(accountId,300.0,new Client("Jean-Pierre"));
     }
 
     @Test
