@@ -2,8 +2,12 @@ package junit;
 
 import com.nhe.bankapp.domain.Account;
 import com.nhe.bankapp.domain.Client;
+import com.nhe.bankapp.exception.DebtorException;
+import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.assertEquals;
 
@@ -27,10 +31,27 @@ public class AccountTest {
     }
 
     @Test
-    public void withdraw_an_amount(){
-        this.account.withdraw(450.0);
+    public void withdraw_an_amount_with_sufficient_founds(){
+        this.account.withdraw(150.0);
 
-        assertEquals(this.account.getBalance(),-150.0,deltaAmount);
+        assertEquals(this.account.getBalance(),150.0,deltaAmount);
+
+    }
+
+    @Test(expected = DebtorException.class)
+    public void withdraw_an_amount_with_insufficient_founds(){
+            this.account.withdraw(450.0);
+            Assert.fail("debtorException flag");
+    }
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    @Test
+    public void withdraw_an_amount_with_insufficient_founds_message_test(){
+        thrown.expect(DebtorException.class);
+        thrown.expectMessage("Insufficient founds!!");
+        this.account.withdraw(450.0);
 
     }
 

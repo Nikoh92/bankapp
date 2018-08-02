@@ -1,5 +1,7 @@
 package com.nhe.bankapp.domain;
 
+import com.nhe.bankapp.exception.DebtorException;
+
 public class Account {
 
     private final String id;
@@ -16,8 +18,9 @@ public class Account {
         balance += amount;
     }
 
-    public void withdraw(double withdrawAmount){
-            balance -= withdrawAmount;
+    public void withdraw(double withdrawAmount) {
+        if(withdrawAmount > balance) throw new DebtorException("Insufficient founds!!") ;
+        balance -= withdrawAmount;
     }
 
     public String getId() {
