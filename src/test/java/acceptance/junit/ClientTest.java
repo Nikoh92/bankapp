@@ -1,4 +1,4 @@
-package junit;
+package acceptance.junit;
 
 import com.nhe.bankapp.domain.Client;
 import org.junit.Test;

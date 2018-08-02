@@ -1,4 +1,4 @@
-package steps;
+package acceptance.steps;
 
 import com.nhe.bankapp.domain.Account;
 import com.nhe.bankapp.domain.Client;
@@ -27,7 +27,8 @@ public class WithdrawSteps {
         this.account.deposit(amount);
 
         assertTrue(this.account.getId().equals(accountId));
-        assertTrue(client.getFirstName().equals(this.account.getClient()));
+        assertTrue(client.getFirstName().equals(this.account.getClient().getFirstName()
+        ));
         assertEquals(this.account.getBalance(),amount,deltaAmount );
     }
 
